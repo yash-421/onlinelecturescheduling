@@ -75,9 +75,9 @@ const AssignCourse = () => {
         console.log(err);
 
         setToast({
-          text: err.response.data.message,
+          text: err?.response?.data?.message,
           isOpen: true,
-          success: err.response.data.success,
+          success: false,
         });
       }
     );
