@@ -45,7 +45,7 @@ const Instructor = () => {
   const [updateValue, setUpdateValue] = useState({
     name: "",
     email: "",
-    courseId: "",
+    instructorId: "",
   });
   const [allInstructor, setALlInstructors] = useState([]);
   const [instructorId, setinstructorId] = useState("");
@@ -207,8 +207,9 @@ const Instructor = () => {
                 allInstructor.map((data, key) => (
                   <TableRow key={key}>
                     <TableCell>{key + 1} </TableCell>
-                    <TableCell>{data.name} </TableCell>
-                    <TableCell>{data.email} </TableCell>
+                    <TableCell>{(data as { name: string }).name}</TableCell>
+                    <TableCell>{(data as { email: string }).email}</TableCell>
+
                     <TableCell>
                       <div className="flex items-center">
                         <Typography
@@ -217,9 +218,9 @@ const Instructor = () => {
                           onClick={() => {
                             setUpdateModal(true);
                             setUpdateValue({
-                              name: data.name,
-                              email: data.email,
-                              instructorId: data._id,
+                              name: (data as { name: string }).name,
+                              email: (data as { email: string }).email,
+                              instructorId:(data as { _id: string })._id,
                             });
                           }}
                         >
@@ -230,7 +231,7 @@ const Instructor = () => {
                           variant="subtitle1"
                           onClick={() => {
                             setDeleteModal(true);
-                            setinstructorId(data._id);
+                            setinstructorId((data as { _id: string })._id);
                           }}
                         >
                           <MdDelete className=" cursor-pointer text-xl mx-1" />
@@ -475,15 +476,6 @@ const Instructor = () => {
                         label={"Instructors Password"}
                         className="flex mx-0 flex-col-reverse items-start my-2"
                       />
-                      {touched.password && errors.password && (
-                        <Typography
-                          color="error"
-                          variant="caption"
-                          component="p"
-                        >
-                          {errors.password}
-                        </Typography>
-                      )}
                     </FormGroup>
                     <Button
                       type="submit"

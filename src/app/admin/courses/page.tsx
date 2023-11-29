@@ -243,12 +243,12 @@ const Course = () => {
                 allcourses?.map((data, key) => (
                   <TableRow key={key}>
                     <TableCell>{key + 1} </TableCell>
-                    <TableCell>{data?.name}</TableCell>
-                    <TableCell>{data?.level}</TableCell>
-                    <TableCell> {data?.description} </TableCell>
+                    <TableCell>{(data as { name: string }).name}</TableCell>
+                    <TableCell>{(data as { level: string }).level}</TableCell>
+                    <TableCell> {(data as { description: string }).description} </TableCell>
                     <TableCell>
                       <img
-                        src={data?.image}
+                        src={(data as { image: string }).image}
                         alt="Course Logo"
                         className="w-[100px] h-[100px]"
                       />
@@ -261,12 +261,12 @@ const Course = () => {
                           onClick={() => {
                             setUpdateModal(true);
                             setUpdateValue({
-                                imagesrc: data.image,
-                                level: data.level,
-                                description: data.description,
-                                courseId: data._id,
+                                imagesrc: (data as { image: string }).image,
+                                level: (data as { level: string }).level,
+                                description: (data as { description: string }).description,
+                                courseId: (data as { _id: string })._id,
                                 image:null,
-                                name:data.name
+                                name:(data as { name: string }).name
                             });
                         }}
                         >
@@ -275,7 +275,7 @@ const Course = () => {
                         <Typography
                           component="a"
                           variant="subtitle1"
-                          onClick={() => {setDeleteModal(true); setDeleteCourseId(data._id)}}
+                          onClick={() => {setDeleteModal(true); setDeleteCourseId((data as { _id: string })._id)}}
                         >
                           <MdDelete className="cursor-pointer text-xl mx-1" />
                         </Typography>
