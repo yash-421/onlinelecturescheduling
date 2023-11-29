@@ -87,7 +87,7 @@ const AssignCourse = () => {
                   <TableCell>{index + 1}</TableCell>
                   <TableCell>{(assignment as any).course.name}</TableCell>
                   <TableCell>
-                    {new Date((assignment as any).date).getDay() +
+                    {new Date((assignment as any).date).getDate() +
                       " - " +
                       new Date((assignment as any).date).getMonth() +
                       " - " +
