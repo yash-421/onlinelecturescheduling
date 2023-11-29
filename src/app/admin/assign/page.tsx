@@ -166,7 +166,7 @@ const AssignCourse = () => {
                   <TableCell>{index + 1}</TableCell>
                   <TableCell>{(assignment as any).instructor.name as any}</TableCell>
                   <TableCell>{(assignment as any).course.name}</TableCell>
-                  <TableCell>{new Date((assignment as any).date).getDay().toString()+" - "+   new Date((assignment as any).date).getMonth().toString()+" - "+ new Date((assignment as any).date).getFullYear().toString()}</TableCell>
+                  <TableCell>{new Date((assignment as any).date).getDate().toString()+" - "+   (new Date((assignment as any).date).getMonth()+1).toString()+" - "+ new Date((assignment as any).date).getFullYear().toString()}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
