@@ -22,6 +22,8 @@ import { MdDashboard } from "react-icons/md";
 import { FaFolder, FaFolderOpen, FaUser } from "react-icons/fa";
 import { GrWorkshop } from "react-icons/gr";
 import { useRouter } from "next/navigation";
+import { usePathname } from 'next/navigation'
+
 
 const AdminLayout = ({
   title,
@@ -52,7 +54,7 @@ const AdminLayout = ({
     sessionStorage.getItem("type") == "admin"
       ? setType("Admin")
       : setType("Instructor");
-  });
+  },[]);
 
   const handleDrawerToggle = () => {
     setOpen(!open);
@@ -74,6 +76,8 @@ const AdminLayout = ({
       link: "/admin/courses",
       icon: <FaFolder />,
       page: "category",
+      active:'/admin/courses'
+
     },
     {
       name: "Instructor",
@@ -117,10 +121,10 @@ const AdminLayout = ({
             <ListItem
               key={index}
               disablePadding
-              className=" hover:bg-secondary rounded-lg group "
+              className={` hover:bg-secondary my-2 rounded-lg group ${(usePathname().toLowerCase()== text.link.toLowerCase()) && 'bg-primary text-white'} `}
               onClick={()=>navigateTo(text.link)}
             >
-              <ListItemButton className="text-gray-600 text-xl  group-hover:text-white">
+              <ListItemButton className=" text-xl  group-hover:text-white">
                 <ListItemIcon className="group-hover:text-white">
                   {text.icon}
                 </ListItemIcon>

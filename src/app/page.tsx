@@ -61,7 +61,6 @@ const Admin = () => {
       });
 
       setTimeout(() => {
-
         sessionStorage.setItem('type',data.data.type)
         if (data.data.type=='admin') {
           router.push('admin')
@@ -69,7 +68,7 @@ const Admin = () => {
           sessionStorage.setItem('instructor',data.data.id)
           router.push('/instructor')
         }
-      }, );
+      },0);
       resetForm();
     },err=>{
       console.log(err);
