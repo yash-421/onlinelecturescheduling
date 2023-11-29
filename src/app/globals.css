@@ -9,9 +9,9 @@ background-color: #f5f5f5;
 }
 
 #menu-instructor{
-    z-index: 99999999999999999999999999999999999999999999;
+    z-index: 9999999999;
 }
 
 #menu-course{
-    z-index: 99999999999999999999999999999999;
+    z-index: 9999999999;
 }
