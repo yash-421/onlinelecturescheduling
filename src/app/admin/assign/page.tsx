@@ -62,6 +62,9 @@ const AssignCourse = () => {
 
     axios.post("https://onlinelectureschedulingserver.onrender.com/" + "admin/assignCourseToInstructor", values).then(
       (data) => {
+
+        console.log(data);
+        
         setToast({
           text: data.data.message,
           isOpen: true,
@@ -74,8 +77,9 @@ const AssignCourse = () => {
       (err) => {
         console.log(err.response);
 
+        let text=err.response.data.message
         setToast({
-          text: err?.response?.data?.message,
+          text:text,
           isOpen: true,
           success: false,
         });
