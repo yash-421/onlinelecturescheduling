@@ -60,7 +60,7 @@ const AssignCourse = () => {
     // Close the modal
     setOpen(false);
 
-    axios.post("http://localhost:4000/" + "admin/assignCourseToInstructor", values).then(
+    axios.post("https://onlinelectureschedulingserver.onrender.com" + "admin/assignCourseToInstructor", values).then(
       (data) => {
         setToast({
           text: data.data.message,
@@ -92,7 +92,7 @@ const AssignCourse = () => {
 
   const getAllAssign = () => {
     axios
-      .post("http://localhost:4000/" + "admin/getAllAssignCourses", {})
+      .post("https://onlinelectureschedulingserver.onrender.com" + "admin/getAllAssignCourses", {})
       .then((data) => {
         console.log(data.data.data);
 
@@ -102,7 +102,7 @@ const AssignCourse = () => {
   };
   const getAllCourse = () => {
     axios
-      .post("http://localhost:4000/" + "admin/getAllCourses", {})
+      .post("https://onlinelectureschedulingserver.onrender.com" + "admin/getAllCourses", {})
       .then((data) => {
         console.log(data.data.data);
 
@@ -113,7 +113,7 @@ const AssignCourse = () => {
 
   const getAllInstructors = () => {
     axios
-      .post("http://localhost:4000/" + "admin/getAllInstructors", {})
+      .post("https://onlinelectureschedulingserver.onrender.com" + "admin/getAllInstructors", {})
       .then((data) => {
         console.log(data.data.data);
 
@@ -122,10 +122,6 @@ const AssignCourse = () => {
       });
   };
 
-  const formatDate = (date:any) => {
-    const options:any = { year: 'numeric', month: 'long', day: 'numeric' };
-    return new Intl.DateTimeFormat('en-US', options).format(date);
-  };
 
   useEffect(() => {
     getAllCourse();
@@ -227,6 +223,7 @@ const AssignCourse = () => {
                           name="instructor"
                           label="instructor"
                           size="small"
+                          className="z-[99999999999999999999999999999]"
                           value={values.instructor}
                           onChange={(e) =>
                             setFieldValue("instructor", e.target.value)
@@ -254,6 +251,7 @@ const AssignCourse = () => {
                           name="course"
                           label="course"
                           size="small"
+                          className="z-[99999999999999999999999999999]"
                           value={values.course}
                           onChange={(e) =>
                             setFieldValue("course", e.target.value)

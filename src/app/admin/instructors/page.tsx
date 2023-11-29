@@ -56,7 +56,7 @@ const Instructor = () => {
   });
 
   const handleSubmit = (values: any, FormikHelper: any) => {
-    axios.post("http://localhost:4000/" + "admin/addInstructor", values).then(
+    axios.post("https://onlinelectureschedulingserver.onrender.com" + "admin/addInstructor", values).then(
       (data) => {
         setToast({
           text: data.data.message,
@@ -86,7 +86,7 @@ const Instructor = () => {
   };
 
   const handleUpdate = (values: any, FormikHelper: any) => {
-    axios.post("http://localhost:4000/" + "admin/updateInstructor", values).then(
+    axios.post("https://onlinelectureschedulingserver.onrender.com" + "admin/updateInstructor", values).then(
       (data) => {
         setToast({
           text: data.data.message,
@@ -116,7 +116,7 @@ const Instructor = () => {
 
   const handleDelete = () => {
     axios
-      .post("http://localhost:4000/" + "admin/deleteInstructor", {
+      .post("https://onlinelectureschedulingserver.onrender.com" + "admin/deleteInstructor", {
         instructorId: instructorId,
       })
       .then(
@@ -143,7 +143,7 @@ const Instructor = () => {
 
   const getAllInstructors = () => {
     axios
-      .post("http://localhost:4000/" + "admin/getAllInstructors", {})
+      .post("https://onlinelectureschedulingserver.onrender.com" + "admin/getAllInstructors", {})
       .then((data) => {
         console.log(data);
         setALlInstructors(data.data.data);
