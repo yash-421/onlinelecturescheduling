@@ -72,7 +72,7 @@ const AssignCourse = () => {
         getAllAssign();
       },
       (err) => {
-        console.log(err);
+        console.log(err.response);
 
         setToast({
           text: err?.response?.data?.message,
