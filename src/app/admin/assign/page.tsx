@@ -60,11 +60,7 @@ const AssignCourse = () => {
     // Close the modal
     setOpen(false);
 
-    axios.post("https://onlinelectureschedulingserver.onrender.com/" + "admin/assignCourseToInstructor", values).then(
-      (data) => {
-
-        console.log(data);
-        
+    axios.post("https://onlinelectureschedulingserver.onrender.com/" + "admin/assignCourseToInstructor", values).then((data) => {
         setToast({
           text: data.data.message,
           isOpen: true,
@@ -73,8 +69,7 @@ const AssignCourse = () => {
         formikHelpers.resetForm();
         setOpen(false);
         getAllAssign();
-      },
-      (err) => {
+      },err => {
         console.log(err.response.data.message);
 
         let text=err.response.data.message
