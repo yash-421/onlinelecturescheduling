@@ -74,11 +74,11 @@ const Course = () => {
   }, []);
 
   const handleSubmit = (
-    values: CourseValues,
-    { setSubmitting, resetForm }: FormikHelpers<CourseValues>
+    values: any,
+    { setSubmitting, resetForm }: any
   ) => {
     let formData = new FormData();
-    Object.entries(values).forEach(([key, value]) => {
+    Object.entries(values).forEach(([key, value]:[any,any]) => {
       formData.append(key, value);
     });
 
@@ -121,7 +121,7 @@ const Course = () => {
   ) => {
     // Your course update logic goes here
     let formData = new FormData();
-    Object.entries(values).forEach(([key, value]) => {
+    Object.entries(values).forEach(([key, value]: [string,  any]) => {
       formData.append(key, value);
     });
 

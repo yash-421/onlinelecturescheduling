@@ -51,8 +51,8 @@ const AssignCourse = () => {
   });
 
   const handleSubmit = (
-    values: AssignmentValues,
-    formikHelpers: FormikHelpers<AssignmentValues>
+    values: any,
+    formikHelpers: any
   ) => {
     // Your assignment submission logic goes here
     console.log(values);
@@ -168,9 +168,9 @@ const AssignCourse = () => {
               {allAssign.map((assignment, index) => (
                 <TableRow key={index}>
                   <TableCell>{index + 1}</TableCell>
-                  <TableCell>{assignment.instructor.name}</TableCell>
-                  <TableCell>{assignment.course.name}</TableCell>
-                  <TableCell>{new Date(assignment.date).getDay().toString()+" - "+   new Date(assignment.date).getMonth().toString()+" - "+ new Date(assignment.date).getFullYear().toString()}</TableCell>
+                  <TableCell>{(assignment as any).instructor.name as any}</TableCell>
+                  <TableCell>{(assignment as any).course.name}</TableCell>
+                  <TableCell>{new Date((assignment as any).date).getDay().toString()+" - "+   new Date((assignment as any).date).getMonth().toString()+" - "+ new Date((assignment as any).date).getFullYear().toString()}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
@@ -237,8 +237,8 @@ const AssignCourse = () => {
                           </MenuItem>
                           {allInstructors.length > 0 &&
                             allInstructors.map((data) => (
-                              <MenuItem key={data._id} value={data._id}>
-                                {data.name}
+                              <MenuItem key={(data as any)._id} value={(data as any)._id}>
+                                {(data as any).name}
                               </MenuItem>
                             ))}
                         </Select>
@@ -264,8 +264,8 @@ const AssignCourse = () => {
                           </MenuItem>
                           {allcourses.length > 0 &&
                             allcourses.map((data) => (
-                              <MenuItem key={data._id} value={data._id}>
-                                {data.name}
+                              <MenuItem key={(data as any)._id} value={(data as any)._id}>
+                                {(data as any).name}
                               </MenuItem>
                             ))}
                         </Select>

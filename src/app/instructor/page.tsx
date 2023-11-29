@@ -85,15 +85,15 @@ const AssignCourse = () => {
               {allAssign.map((assignment, index) => (
                 <TableRow key={index}>
                   <TableCell>{index + 1}</TableCell>
-                  <TableCell>{assignment.course.name}</TableCell>
+                  <TableCell>{(assignment as any).course.name}</TableCell>
                   <TableCell>
-                    {new Date(assignment.date).getDay() +
+                    {new Date((assignment as any).date).getDay() +
                       " - " +
-                      new Date(assignment.date).getMonth() +
+                      new Date((assignment as any).date).getMonth() +
                       " - " +
-                      new Date(assignment.date).getFullYear()}
+                      new Date((assignment as any).date).getFullYear()}
                   </TableCell>
-                  <TableCell>{assignment?.batch} </TableCell>
+                  <TableCell>{(assignment as any)?.batch} </TableCell>
                 </TableRow>
               ))}
             </TableBody>
