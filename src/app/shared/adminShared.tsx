@@ -72,7 +72,7 @@ const AdminLayout = ({
       page: "dashboard",
     },
     {
-      name: "Coures",
+      name: "Courses",
       link: "/admin/courses",
       icon: <FaFolder />,
       page: "category",
