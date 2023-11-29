@@ -50,6 +50,17 @@ const AssignCourse = () => {
     isOpen: false,
   });
 
+  useEffect(() => {
+    let hideToast = setTimeout(() => {
+      setToast((value) => {
+        return { ...value, isOpen: false };
+      });
+    }, 4000);
+    return () => {
+      clearTimeout(hideToast);
+    };
+  }, [toast]);
+
   const handleSubmit = (
     values: any,
     formikHelpers: any
