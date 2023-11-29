@@ -1,113 +1,220 @@
-import Image from 'next/image'
+"use client";
+import {
+  Alert,
+  Button,
+  Card,
+  CardContent,
+  FormControl,
+  FormControlLabel,
+  FormGroup,
+  Grid,
+  InputAdornment,
+  TextField,
+  Typography,
+} from "@mui/material";
+import { Field, Form, Formik, FormikValues } from "formik";
+import { useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { MdEmail } from "react-icons/md";
+import * as Yup from "yup";
+import axios from "axios";
 
-export default function Home() {
+const Admin = () => {
+  const [credentials, setCredential] = useState({ email: "", password: "" });
+  const loginValidation = Yup.object().shape({
+    email: Yup.string()
+      .email("*Please enter valid email")
+      .required("*Email is required"),
+    password: Yup.string().required("*Password is required"),
+  });
+  const [toast, setToast] = useState({
+    success: true,
+    text: "",
+    isOpen: false,
+  });
+  useEffect(() => {
+    let hideToast = setTimeout(() => {
+      setToast((value) => {
+        return { ...value, isOpen: false };
+      });
+    }, 4000);
+    return () => {
+      clearTimeout(hideToast);
+    };
+  }, [toast]);
+
+  const router = useRouter();
+
+  let [showpassword, setShowPassword] = useState("password");
+
+  const login = async (values: FormikValues, { resetForm }: any) => {
+
+   axios.post(
+      "http://localhost:4000/" + "admin/login",
+      values
+    ).then((data)=>{
+      setToast({
+        text: data.data.message,
+        isOpen: true,
+        success: data.data.success,
+      });
+
+      setTimeout(() => {
+
+        sessionStorage.setItem('type',data.data.type)
+        if (data.data.type=='admin') {
+          router.push('admin')
+        }else{
+          sessionStorage.setItem('instructor',data.data.id)
+          router.push('/instructor')
+        }
+      }, );
+      resetForm();
+    },err=>{
+      console.log(err);
+      
+      setToast({
+        text: err.response.data.message,
+        isOpen: true,
+        success: err.response.data.success,
+      });
+    })
+    
+
+
+    // if (values) {
+    //   router.push("admin");
+    // }
+  };
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+    <Grid
+      container
+      className="flex justify-center items-center h-screen bg-back"
+    >
+      <Grid item lg={4} md={8} sm={8} xs={10}>
+        <Card className="p-5 shadow-none">
+          <CardContent>
+            <Formik
+              initialValues={credentials}
+              validationSchema={loginValidation}
+              onSubmit={login}
+            >
+              {({ isValid, errors, touched, isSubmitting }) => (
+                <Form>
+                  <FormControl>
+                    <Typography
+                      variant="h6"
+                      className="font-semibold"
+                      component="h1"
+                    >
+                      Welcome Back
+                    </Typography>
+                    <Typography
+                      variant="subtitle1"
+                      className="font-light text-gray-400"
+                      component="p"
+                    >
+                      Login to your account
+                    </Typography>
+                    <FormGroup>
+                      <FormControlLabel
+                        control={
+                          <Field
+                            size="small"
+                            as={TextField}
+                            type="email"
+                            label="Email"
+                            variant="outlined"
+                            className="m-2"
+                            name="email"
+                            InputProps={{
+                              endAdornment: (
+                                <InputAdornment position="start">
+                                  <MdEmail />
+                                </InputAdornment>
+                              ),
+                            }}
+                          />
+                        }
+                        label="Email"
+                        className="flex mx-0 flex-col-reverse items-start my-2"
+                      />
+                      {touched.email && errors.email && (
+                        <Typography color="error" variant="caption">
+                          {errors.email}
+                        </Typography>
+                      )}
+                      <FormControlLabel
+                        control={
+                          <Field
+                            size="small"
+                            as={TextField}
+                            type={showpassword}
+                            label="Password"
+                            variant="outlined"
+                            className="m-2"
+                            name="password"
+                            InputProps={{
+                              endAdornment: (
+                                <InputAdornment position="start">
+                                  <Button
+                                    onClick={() =>
+                                      showpassword == "password"
+                                        ? setShowPassword("text")
+                                        : setShowPassword("password")
+                                    }
+                                    className="min-w-0 w-full p-0 text-gray-400"
+                                    variant="text"
+                                  >
+                                    {showpassword == "password" ? (
+                                      <FaEye className="cursor-pointer" />
+                                    ) : (
+                                      <FaEyeSlash className="cursor-pointer" />
+                                    )}
+                                  </Button>
+                                </InputAdornment>
+                              ),
+                            }}
+                          />
+                        }
+                        label="Password"
+                        className="flex mx-0 flex-col-reverse items-start my-2"
+                      />
+                      {touched.password && errors.password && (
+                        <Typography color="error" variant="caption">
+                          {errors.password}
+                        </Typography>
+                      )}
 
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
+                      <Button
+                        className="float-left self-start ml-2 bg-primary"
+                        variant="contained"
+                        disabled={!isValid}
+                        type="submit"
+                      >
+                        Login
+                      </Button>
+                    </FormGroup>
+                  </FormControl>
+                </Form>
+              )}
+            </Formik>
+          </CardContent>
+        </Card>
+      </Grid>
+      {toast.isOpen && (
+        <Alert
+          variant="filled"
+          severity={toast.success ? "success" : "error"}
+          className=" fixed top-5 right-5 "
+          onClose={()=>{setToast((values)=>({ ...values,isOpen:false}))}}
         >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
+          {toast.text}
+        </Alert>
+      )}
+    </Grid>
+  );
+};
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore starter templates for Next.js.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
-}
+export default Admin;
