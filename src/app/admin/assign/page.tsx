@@ -60,7 +60,7 @@ const AssignCourse = () => {
     // Close the modal
     setOpen(false);
 
-    axios.post("https://onlinelectureschedulingserver.onrender.com" + "admin/assignCourseToInstructor", values).then(
+    axios.post("https://onlinelectureschedulingserver.onrender.com/" + "admin/assignCourseToInstructor", values).then(
       (data) => {
         setToast({
           text: data.data.message,
@@ -92,7 +92,7 @@ const AssignCourse = () => {
 
   const getAllAssign = () => {
     axios
-      .post("https://onlinelectureschedulingserver.onrender.com" + "admin/getAllAssignCourses", {})
+      .post("https://onlinelectureschedulingserver.onrender.com/" + "admin/getAllAssignCourses", {})
       .then((data) => {
         console.log(data.data.data);
 
@@ -102,7 +102,7 @@ const AssignCourse = () => {
   };
   const getAllCourse = () => {
     axios
-      .post("https://onlinelectureschedulingserver.onrender.com" + "admin/getAllCourses", {})
+      .post("https://onlinelectureschedulingserver.onrender.com/" + "admin/getAllCourses", {})
       .then((data) => {
         console.log(data.data.data);
 
@@ -113,7 +113,7 @@ const AssignCourse = () => {
 
   const getAllInstructors = () => {
     axios
-      .post("https://onlinelectureschedulingserver.onrender.com" + "admin/getAllInstructors", {})
+      .post("https://onlinelectureschedulingserver.onrender.com/" + "admin/getAllInstructors", {})
       .then((data) => {
         console.log(data.data.data);
 

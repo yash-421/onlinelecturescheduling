@@ -82,7 +82,7 @@ const Course = () => {
       formData.append(key, value);
     });
 
-    axios.post("https://onlinelectureschedulingserver.onrender.com" + "admin/addCourse", formData).then(
+    axios.post("https://onlinelectureschedulingserver.onrender.com/" + "admin/addCourse", formData).then(
       (data) => {
         setToast({
           text: data.data.message,
@@ -108,7 +108,7 @@ const Course = () => {
 
   const getAllCourse = () => {
     axios
-      .post("https://onlinelectureschedulingserver.onrender.com" + "admin/getAllCourses", {})
+      .post("https://onlinelectureschedulingserver.onrender.com/" + "admin/getAllCourses", {})
       .then((data) => {
         console.log(data);
         setAllcourses(data.data.data);
@@ -125,7 +125,7 @@ const Course = () => {
       formData.append(key, value);
     });
 
-    axios.post("https://onlinelectureschedulingserver.onrender.com" + "admin/updateCourse", formData).then(
+    axios.post("https://onlinelectureschedulingserver.onrender.com/" + "admin/updateCourse", formData).then(
       (data) => {
         setToast({
           text: data.data.message,
@@ -154,7 +154,7 @@ const Course = () => {
   };
 
   const handleDelete=()=>{
-    axios.post("https://onlinelectureschedulingserver.onrender.com" + "admin/deleteCourse", {courseId:deleteCourseId}).then(
+    axios.post("https://onlinelectureschedulingserver.onrender.com/" + "admin/deleteCourse", {courseId:deleteCourseId}).then(
       (data) => {
         setToast({
           text: data.data.message,

@@ -51,7 +51,7 @@ const Admin = () => {
   const login = async (values: FormikValues, { resetForm }: any) => {
 
    axios.post(
-      "https://onlinelectureschedulingserver.onrender.com" + "admin/login",
+      "https://onlinelectureschedulingserver.onrender.com/" + "admin/login",
       values
     ).then((data)=>{
       setToast({

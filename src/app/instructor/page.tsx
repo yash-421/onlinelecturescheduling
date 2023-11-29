@@ -44,7 +44,7 @@ const AssignCourse = () => {
 
   const getAllAssign = () => {
     axios
-      .post("https://onlinelectureschedulingserver.onrender.com" + "admin/getAllAssignCourses", {
+      .post("https://onlinelectureschedulingserver.onrender.com/" + "admin/getAllAssignCourses", {
         instructor: sessionStorage.getItem("instructor"),
       })
       .then((data) => {

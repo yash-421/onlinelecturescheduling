@@ -12,7 +12,7 @@ const page = () => {
 
   useEffect(() => {
     axios
-      .post("https://onlinelectureschedulingserver.onrender.com" + "admin/dashboard", {})
+      .post("https://onlinelectureschedulingserver.onrender.com/" + "admin/dashboard", {})
       .then((data) => {
         console.log(data);
         setcount({instructors:data.data.instructors,courses:data.data.courses});
