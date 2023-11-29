@@ -310,14 +310,12 @@ const AssignCourse = () => {
         <Alert
           variant="filled"
           severity={toast.success ? "success" : "error"}
-          className=" fixed top-5 right-5 z-[99999999999999999999999999999999999999999999999999999] "
-          onClose={() => {
-            setToast((values) => ({ ...values, isOpen: false }));
-          }}
+          className=" fixed top-5 right-5 "
+          onClose={()=>{setToast((values)=>({ ...values,isOpen:false}))}}
         >
           {toast.text}
         </Alert>
-      )}{" "}
+      )}
     </AdminLayout>
   );
 };
